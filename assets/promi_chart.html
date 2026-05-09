@@ -1,0 +1,47 @@
+<div style="display: flex; flex-wrap: wrap; gap: 16px; margin-bottom: 12px; font-size: 12px; color: var(--color-text-secondary);">
+  <span style="display: flex; align-items: center; gap: 6px;"><span style="width: 10px; height: 10px; border-radius: 2px; background:#888780;"></span>Andere Werbeverträge (DE)</span>
+  <span style="display: flex; align-items: center; gap: 6px;"><span style="width: 10px; height: 10px; border-radius: 2px; background:#A32D2D;"></span>Gottschalk – Haribo (Weltrekord)</span>
+</div>
+<div style="position: relative; width: 100%; height: 380px;">
+  <canvas id="promiChart" role="img" aria-label="Vergleich der längsten deutschen Promi-Werbeverträge in Jahren. Gottschalk-Haribo bei 24 Jahren ist doppelt so lang wie der zweitlängste bekannte Vertrag.">Vergleich Promi-Werbeverträge: Durchschnitt 2,4 Jahre. Gottschalk-Haribo: 24 Jahre.</canvas>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script>
+new Chart(document.getElementById('promiChart'), {
+  type: 'bar',
+  data: {
+    labels: [
+      'Durchschnitt deutscher Werbeverträge',
+      'Top 25% längste Verträge',
+      'Top 10% längste Verträge',
+      'Top 5% längste Verträge',
+      'Top 1% längste Verträge',
+      'Längster bekannter (außer Gottschalk)',
+      'Gottschalk – Haribo'
+    ],
+    datasets: [{
+      label: 'Vertragsdauer (Jahre)',
+      data: [2.4, 3.5, 5, 7, 10, 12, 24],
+      backgroundColor: ['#888780','#888780','#888780','#888780','#888780','#888780','#A32D2D'],
+      borderRadius: 4,
+      barThickness: 22
+    }]
+  },
+  options: {
+    indexAxis: 'y',
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: { display: false },
+      tooltip: { callbacks: { label: (ctx) => ctx.parsed.x + ' Jahre' } }
+    },
+    scales: {
+      x: {
+        beginAtZero: true,
+        max: 28,
+        title: { display: true, text: 'Vertragsdauer in Jahren', font: { size: 12 } }
+      }
+    }
+  }
+});
+</script>

@@ -1,0 +1,38 @@
+<style>
+  .pcalc { padding: 1rem 0; }
+  .pcalc .row { display: grid; grid-template-columns: 1fr auto; gap: 16px; padding: 11px 18px; align-items: center; border-bottom: 0.5px solid var(--color-border-tertiary); }
+  .pcalc .row:last-child { border-bottom: none; }
+  .pcalc .label { font-size: 13px; color: var(--color-text-primary); line-height: 1.4; }
+  .pcalc .value { font-family: var(--font-mono); font-size: 13px; color: var(--color-text-info); white-space: nowrap; }
+  .pcalc .container { background: var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); }
+  .pcalc .result { background: rgba(163, 45, 45, 0.08); border: 0.5px solid #A32D2D; border-radius: var(--border-radius-lg); padding: 16px 20px; margin-top: 14px; display: grid; grid-template-columns: 1fr auto; gap: 16px; align-items: center; }
+  .pcalc .result-label { font-size: 14px; font-weight: 500; color: #791F1F; }
+  .pcalc .result-value { font-family: var(--font-mono); font-size: 17px; font-weight: 500; color: #791F1F; white-space: nowrap; }
+  .pcalc .compare { margin-top: 16px; padding: 12px 18px; font-size: 12px; color: var(--color-text-secondary); border-top: 0.5px solid var(--color-border-tertiary); }
+  .pcalc .compare-row { display: grid; grid-template-columns: 1fr auto; gap: 16px; padding: 4px 0; }
+  .pcalc .compare-row span:last-child { font-family: var(--font-mono); }
+  .pcalc .compare-header { font-weight: 500; margin-bottom: 8px; color: var(--color-text-primary); font-size: 13px; }
+  .pcalc .footer { margin-top: 14px; font-style: italic; color: var(--color-text-secondary); font-size: 12px; text-align: center; }
+</style>
+<div class="pcalc">
+  <div class="container">
+    <div class="row"><span class="label">Haribo gegründet exakt am Siebengebirge</span><span class="value">1 zu 1.000</span></div>
+    <div class="row"><span class="label">Erdbeer-Geschmack über 80 Jahre grün gefärbt</span><span class="value">1 zu 10.000</span></div>
+    <div class="row"><span class="label">Apfel-Bär (2007) und Blau-Bär (2014) exakt 7 Jahre auseinander</span><span class="value">1 zu 1.000</span></div>
+    <div class="row"><span class="label">Gottschalk-Ausstieg ohne Begründung nach 24 Jahren</span><span class="value">1 zu 500</span></div>
+    <div class="row"><span class="label">Malibu-Villa brennt im sensibelsten Jahr ab</span><span class="value">1 zu 200</span></div>
+    <div class="row"><span class="label">Bully nach 4 Jahren raus, danach nie wieder Promis</span><span class="value">1 zu 50</span></div>
+    <div class="row"><span class="label">Tummis Fellfarbe driftet von blau zu grau</span><span class="value">1 zu 100</span></div>
+  </div>
+  <div class="result">
+    <span class="result-label">Wahrscheinlichkeit, dass alles Zufall ist (zusammen multipliziert)</span>
+    <span class="result-value">≈ 1 zu 5 · 10¹⁶</span>
+  </div>
+  <div class="compare">
+    <div class="compare-header">Zum Vergleich</div>
+    <div class="compare-row"><span>Sechser im Lotto</span><span>1 zu 14 Mio.</span></div>
+    <div class="compare-row"><span>Vom Blitz getroffen</span><span>1 zu 1,2 Mio.</span></div>
+    <div class="compare-row"><span>Royal Flush beim Poker</span><span>1 zu 650.000</span></div>
+  </div>
+  <p class="footer">Ein Zufall? Wer das glaubt, glaubt auch an blaue Algen.</p>
+</div>
