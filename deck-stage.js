@@ -143,7 +143,7 @@
       bottom: 22px;
       transform: translate(-50%, 6px) scale(0.92);
       filter: blur(6px);
-      display: flex;
+      display: none;
       align-items: center;
       gap: 4px;
       padding: 4px;

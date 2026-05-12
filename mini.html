@@ -1,0 +1,427 @@
+<!DOCTYPE html><html lang="de"><head>
+
+<meta charset="utf-8">
+<title>Die Goldbär-Verschwörung · Mini</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&amp;family=Bebas+Neue&amp;family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bild-red: #E2001A;
+    --bild-red-dark: #A1000F;
+    --bild-yellow: #FFED00;
+    --bild-black: #0A0A0A;
+    --bild-white: #FFFFFF;
+    --bild-paper: #F5F1E8;
+    --bild-ink: #161513;
+
+    --pad-x: 100px;
+
+    --font-head: 'Bebas Neue', 'Oswald', Impact, sans-serif;
+    --font-cond: 'Oswald', 'Arial Narrow', sans-serif;
+    --font-body: 'Inter', 'Helvetica Neue', sans-serif;
+  }
+
+  html, body { margin: 0; padding: 0; background: #000; }
+  deck-stage { background: #000; }
+
+  section.slide {
+    background: var(--bild-white);
+    color: var(--bild-ink);
+    font-family: var(--font-body);
+    overflow: hidden;
+    position: relative;
+  }
+
+  .bild-strip {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 72px;
+    background: var(--bild-red);
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    padding: 0 var(--pad-x);
+    color: var(--bild-white);
+    font-family: var(--font-cond);
+    font-weight: 600;
+    font-size: 22px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    z-index: 5;
+    overflow: hidden;
+  }
+  .bild-strip > span { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; }
+  .bild-strip .logo {
+    background: var(--bild-white);
+    color: var(--bild-red);
+    font-family: var(--font-head);
+    font-size: 36px;
+    line-height: 1;
+    padding: 5px 14px 2px;
+    letter-spacing: 0;
+    transform: skew(-6deg);
+    flex: 0 0 auto;
+    white-space: nowrap;
+  }
+  .bild-strip .ribbon-spacer { flex: 1; }
+  .bild-strip .date { font-size: 24px; opacity: .9; letter-spacing: 1px; }
+
+  .bild-foot {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 46px;
+    background: var(--bild-black);
+    color: var(--bild-yellow);
+    font-family: var(--font-cond);
+    font-size: 18px;
+    letter-spacing: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 0 var(--pad-x);
+    text-transform: uppercase;
+    z-index: 5;
+    overflow: hidden;
+  }
+  .bild-foot > span { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; }
+  .bild-foot > span:nth-child(2) { flex: 1; text-align: center; }
+  .bild-foot > span:last-child { flex: 0 0 auto; }
+  .bild-foot .pill {
+    background: var(--bild-red);
+    color: var(--bild-white);
+    padding: 4px 16px 2px;
+    border-radius: 2px;
+    font-weight: 700;
+  }
+
+  .stage-area {
+    position: absolute;
+    top: 72px; left: 0; right: 0; bottom: 46px;
+    padding: 60px var(--pad-x) 50px;
+    box-sizing: border-box;
+  }
+
+  .kicker {
+    font-family: var(--font-cond);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 5px;
+    color: var(--bild-red);
+    font-size: 34px;
+  }
+
+  .headline {
+    font-family: var(--font-head);
+    font-size: 130px;
+    line-height: .9;
+    color: var(--bild-black);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin: 0;
+  }
+  .headline em { color: var(--bild-red); font-style: normal; }
+
+  /* Photo with caption — reusable building block */
+  .photo {
+    position: relative;
+    overflow: hidden;
+    border: 5px solid var(--bild-black);
+    box-shadow: 12px 12px 0 var(--bild-red);
+    background: #111;
+    min-height: 0;
+    min-width: 0;
+  }
+  .photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+  /* Stacked photo column — fits two photos in the available height */
+  .photo-stack {
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    gap: 24px;
+    height: 100%;
+    min-height: 0;
+  }
+  .photo .cap {
+    position: absolute;
+    left: 0; bottom: 0;
+    background: var(--bild-black);
+    color: var(--bild-yellow);
+    padding: 10px 18px 6px;
+    font-family: var(--font-cond);
+    font-size: 22px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+
+  .photo.alt { box-shadow: 12px 12px 0 var(--bild-yellow); }
+
+  /* Slide transitions */
+  deck-stage::part(slide) { transition: opacity .25s ease; }
+</style>
+<script type="application/json" id="speaker-notes">
+[
+"Cover-Folie. Setze den Rahmen: BILD-Sonderausgabe, das größte zoologische Verbrechen — Haribo seit 1920. Erzähle frei.",
+"Schock-Moment. Halten Sie inne — was Sie da essen, ist nicht das, was Sie denken. Erzähle frei.",
+"Spezies-Folie. Ursus gummiformis: der echte Goldbär, das Siebengebirge, die fehlenden Beweise. Erzähle frei.",
+"1920er-Folie. Hans Riegel, der Fund, die Fabrik. Erzähle frei.",
+"Erdbeere-grün-Folie. Die unmögliche Farbe, gelöst per CRISPR. Erzähle frei.",
+"Algen-Lüge-Folie. Plötzlich blaue Bären, Algen-Ausrede, der Whistleblower. Erzähle frei.",
+"Gottschalk-Folie. 24 Jahre Werbung, plötzliches Aus, die Villa. Erzähle frei.",
+"Schlussfolie. Wahrscheinlichkeit, Aufruf. Erzähle frei."
+]
+</script>
+</head>
+<body style="">
+<deck-stage width="1920" height="1080" style="--deck-rail-w: 188px;">
+
+  <!-- =============== SLIDE 1: COVER =============== -->
+  <section class="slide" data-label="01 Cover" style="background: var(--bild-white);">
+    <div class="bild-strip">
+      <span class="logo">EXKLUSIV</span>
+      <span>POWERPOINT-KARAOKE · SONDERAUSGABE</span>
+      <span class="ribbon-spacer"></span>
+      <span class="date">2026</span>
+    </div>
+
+    <div style="position:absolute; top:80px; left:0; right:0; bottom:70px; display:grid; grid-template-columns: 1.05fr 0.95fr;">
+      <div style="padding: 100px 60px 80px var(--pad-x); display:flex; flex-direction:column; justify-content:center;">
+        <div style="font-family: var(--font-cond); font-weight:700; font-size:38px; letter-spacing:6px; color:var(--bild-red); text-transform:uppercase;">Aufgedeckt</div>
+        <div style="height:6px; background:var(--bild-red); width:200px; margin: 18px 0 36px;"></div>
+
+        <h1 style="font-family: var(--font-head); font-size: 190px; line-height:.86; letter-spacing:2px; margin:0; color:var(--bild-black); text-transform:uppercase;">
+          <span>DIE</span><br>
+          <span style="background:var(--bild-red); color:var(--bild-white); padding: 22px 22px 0; display:inline-block;">GOLDBÄR-</span><br>
+          <span>VERSCHWÖ-</span><br>
+          <span>RUNG</span>
+        </h1>
+      </div>
+
+      <div style="display:flex; align-items:center; justify-content:center; padding: 30px 40px;">
+        <div style="position:relative; height:100%; aspect-ratio: 640/835; max-width:100%; overflow:hidden;">
+          <img src="assets/goldbaer_original.png" alt="Original Haribo Goldbären" style="width:100%; height:100%; object-fit:cover; display:block;">
+          <div style="position:absolute; left:0; bottom:0; background:var(--bild-black); color:var(--bild-yellow); padding: 10px 18px 6px; font-family: var(--font-cond); font-size: 22px; letter-spacing: 2px; text-transform: uppercase;">Haribo · Werbung · 1960er</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="bild-foot">
+      <span class="pill">SCHOCK-REPORT</span>
+      <span>WAS WIRKLICH IN DER TÜTE STECKT</span>
+      <span style="color:#fff;">SEITE 1</span>
+    </div>
+  </section>
+
+  <!-- =============== SLIDE 2: WAS SIE DA ESSEN =============== -->
+  <section class="slide" data-label="02 Falsch" style="background:#0a0a0a;">
+    <div style="position:absolute; inset:0; padding: 0 var(--pad-x); box-sizing:border-box; color:#fff; display:flex; flex-direction:column; justify-content:center; align-items:center; gap: 40px;">
+
+      <div style="font-family: var(--font-cond); font-weight:700; font-size: 36px; letter-spacing:10px; color:var(--bild-yellow); text-transform:uppercase;">Sie denken: Zucker. Gelatine.</div>
+
+      <div style="background:var(--bild-red); color:#fff; padding: 40px 80px 28px; font-family: var(--font-head); font-size: 280px; line-height:.9; letter-spacing:6px; transform:skew(-3deg); box-shadow: 0 14px 0 #5a0008;">
+        <span style="display:inline-block; transform:skew(3deg);">FALSCH.</span>
+      </div>
+    </div>
+    <div class="bild-foot"><span class="pill">DIE LÜGE</span><span>WAS SIE DA WIRKLICH ESSEN</span><span style="color:#fff;">SEITE 2</span></div>
+  </section>
+
+  <!-- =============== SLIDE 3: URSUS GUMMIFORMIS =============== -->
+  <section class="slide" data-label="03 Ursus gummiformis">
+    <div class="bild-strip">
+      <span class="logo">SPEZIES</span>
+      <span>DIE AUSGEROTTETE ART</span>
+      <span class="ribbon-spacer"></span>
+    </div>
+
+    <div class="stage-area" style="display:grid; grid-template-columns: 1fr 1.4fr; gap:60px;">
+      <div style="display:flex; flex-direction:column; justify-content:center;">
+        <div class="kicker">Lateinisch</div>
+        <h2 class="headline" style="font-size: 110px; margin-top: 12px;"><em style="color:var(--bild-red); font-style:italic; font-family: 'Inter', serif; font-weight: 700;">Ursus<br>gummi-<br>formis</em></h2>
+        <div style="font-family:var(--font-cond); font-size: 32px; color:#444; margin-top: 18px; letter-spacing:3px; text-transform:uppercase;">Der echte Gummibär</div>
+      </div>
+
+      <div class="photo-stack">
+        <div class="photo">
+          <img src="assets/Wald_Foto.png" alt="Vollmond-Tanzkreis im Siebengebirge">
+          <div class="cap">Vollmond-Tanzkreis · Siebengebirge · um 1915</div>
+        </div>
+        <div class="photo alt">
+          <img src="assets/Brief_Foto.png" alt="Historischer Brief">
+          <div class="cap">Über Hans Riegels Entdeckung · Bonn 1920</div>
+        </div>
+      </div>
+    </div>
+    <div class="bild-foot"><span class="pill">FAKTEN</span><span>KEINE SKELETTE · KEINE FOSSILIEN · KEINE BEWEISE</span><span style="color:#fff;">SEITE 3</span></div>
+  </section>
+
+  <!-- =============== SLIDE 4: 1920 RIEGEL =============== -->
+  <section class="slide" data-label="04 1920 Riegel">
+    <div class="bild-strip">
+      <span class="logo">1920</span>
+      <span>DER MANN, DER DIE LICHTUNG FAND</span>
+      <span class="ribbon-spacer"></span>
+    </div>
+
+    <div class="stage-area" style="display:grid; grid-template-columns: 1fr 1fr; gap: 50px;">
+      <div style="display:flex; flex-direction:column; justify-content:center;">
+        <div class="kicker">Spätsommer 1920</div>
+        <h2 class="headline" style="font-size: 110px; margin-top: 16px;">Eine "<em>routine­mäßige</em>"<br>Wanderung.</h2>
+        <div style="margin-top: 28px; font-family:var(--font-head); font-size: 60px; line-height:1; letter-spacing:1.5px; color:var(--bild-black); text-transform:uppercase;">
+          <span style="background:var(--bild-yellow); padding: 4px 14px 0; display:inline-block;">3 Monate später:</span><br>
+          <span style="color:var(--bild-red);">Firmen­gründung.</span>
+        </div>
+      </div>
+
+      <div class="photo-stack">
+        <div class="photo">
+          <img src="assets/hans_riegel.webp" alt="Hans Riegel">
+          <div class="cap">Hans Riegel · Konditor · Bonn</div>
+        </div>
+        <div class="photo alt">
+          <img src="assets/alte_fabrik_bonn.avif" alt="Alte Haribo-Fabrik in Bonn">
+          <div class="cap">Die alte Fabrik · Bonn</div>
+        </div>
+      </div>
+    </div>
+    <div class="bild-foot"><span class="pill">CHRONIK</span><span>VOM WANDERWEG IN DIE BONBON-FABRIK</span><span style="color:#fff;">SEITE 4</span></div>
+  </section>
+
+  <!-- =============== SLIDE 5: ERDBEERE = GRÜN =============== -->
+  <section class="slide" data-label="05 Erdbeere gruen" style="background: var(--bild-yellow);">
+    <div style="position:absolute; inset: 72px 0 46px 0; padding: 70px var(--pad-x) 50px; display:grid; grid-template-columns: 1fr 1fr; gap: 60px; box-sizing: border-box;">
+
+      <div style="min-width:0; display:flex; flex-direction:column; justify-content:center;">
+        <div style="font-family:var(--font-cond); font-weight:700; font-size: 26px; letter-spacing:6px; color:var(--bild-black); text-transform:uppercase; opacity:.7;">Macht die Augen auf!</div>
+
+        <h2 style="font-family: var(--font-head); font-size: 130px; line-height:.88; margin: 18px 0; letter-spacing: 1px; text-transform:uppercase; color:var(--bild-black);">
+          Erdbeere ist<br><span style="background:var(--bild-red); color:#fff; padding: 0 18px;">ROT.</span>
+        </h2>
+
+        <div style="font-family: var(--font-head); font-size: 90px; line-height:.95; color:#0c5a2a; text-shadow: 4px 4px 0 #000; letter-spacing:1px; margin-top: 18px; text-transform:uppercase;">
+          Bei Haribo:<br><span>Grün bis 2007.</span>
+        </div>
+      </div>
+
+      <div class="photo-stack">
+        <div class="photo" style="background:#000;">
+          <img src="assets/Erdbeer_grün.png" alt="Erdbeere vs. grüner Goldbär" style="object-fit: contain;">
+          <div class="cap">Von wegen so gewollt.</div>
+        </div>
+        <div class="photo alt">
+          <img src="assets/crispr.webp" alt="CRISPR-Gentechnik">
+          <div class="cap">CRISPR · Neue Farben endlich möglich · ab 2007</div>
+        </div>
+      </div>
+    </div>
+    <div class="bild-foot"><span class="pill">BEWEIS BIOLOGIE</span><span>FARBE UND AROMA WAREN GENETISCH GEKOPPELT</span><span style="color:#fff;">SEITE 5</span></div>
+  </section>
+
+  <!-- =============== SLIDE 6: ALGEN-LÜGE =============== -->
+  <section class="slide" data-label="06 Algen-Luege">
+    <div class="bild-strip">
+      <span class="logo">2014</span>
+      <span>"PFLANZLICHER FARBSTOFF"</span>
+      <span class="ribbon-spacer"></span>
+    </div>
+
+    <div class="stage-area" style="display:grid; grid-template-columns: 1fr 1fr; gap: 50px;">
+      <div style="display:flex; flex-direction:column; justify-content:center; gap: 28px;">
+        <div style="display:flex; align-items:center; gap: 22px;">
+          <div style="background: var(--bild-red); color: #fff; padding: 10px 24px 4px; font-family: var(--font-head); font-size: 70px; line-height: 1; transform: skew(-6deg); letter-spacing: 1px; box-shadow: 6px 6px 0 var(--bild-black);">
+            <span style="display:inline-block; transform: skew(6deg);">2014</span>
+          </div>
+          <div style="font-family: var(--font-cond); font-weight: 700; font-size: 30px; letter-spacing: 5px; color: var(--bild-black); text-transform: uppercase;">Plötzlich:</div>
+        </div>
+
+        <h2 class="headline" style="font-size: 110px; margin: 0;">
+          <span style="background:#0033cc; color:#fff; padding: 0 18px; box-shadow: 8px 8px 0 var(--bild-yellow);">Blaue<br>Bären.</span>
+        </h2>
+
+        <div style="font-family: var(--font-head); font-size: 56px; line-height: 1; letter-spacing: 1px; text-transform: uppercase; color: var(--bild-black);">
+          Haribo sagt: <span style="color:var(--bild-red); background: var(--bild-yellow); padding: 0 12px;">„Aus Algen."</span>
+        </div>
+      </div>
+
+      <div class="photo-stack">
+        <div class="photo">
+          <img src="assets/algen_google.png" alt="Google Bildersuche: Algen" style="object-position: top;">
+          <div class="cap">Google · "Algen" · Grün!</div>
+        </div>
+        <div class="photo alt">
+          <img src="assets/xavier_naidoo.jpg" alt="Xavier Naidoo">
+          <div class="cap">Experte · "Entweder aus Babys oder Gentechnik!"</div>
+        </div>
+      </div>
+    </div>
+    <div class="bild-foot"><span class="pill">WIDERSPRUCH</span><span>BIOLOGIE GEGEN MARKETING</span><span style="color:#fff;">SEITE 6</span></div>
+  </section>
+
+  <!-- =============== SLIDE 7: GOTTSCHALK =============== -->
+  <section class="slide" data-label="07 Gottschalk">
+    <div class="bild-strip">
+      <span class="logo">PROMI</span>
+      <span>DER MANN, DER REDEN WOLLTE</span>
+      <span class="ribbon-spacer"></span>
+    </div>
+
+    <div class="stage-area" style="display:grid; grid-template-columns: 1fr 1fr; gap: 50px;">
+
+      <div style="display:flex; flex-direction:column; justify-content:center;">
+        <div class="kicker">1991 — 2014</div>
+        <h2 class="headline" style="font-size: 110px; margin-top: 12px;"><span style="color:var(--bild-red);">24 Jahre.</span><br>Dann Aus.</h2>
+
+        <div style="margin-top: 36px; background: var(--bild-red); color: #fff; padding: 26px 32px 20px; transform: skew(-3deg); box-shadow: 12px 12px 0 var(--bild-black); display: inline-block; align-self: flex-start;">
+          <div style="transform: skew(3deg);">
+            <div style="font-family: var(--font-head); font-size: 76px; line-height: .92; letter-spacing: 1.5px; text-transform: uppercase;">
+              Er wollte<br>
+              <span style="background: var(--bild-yellow); color: var(--bild-black); padding: 0 16px; display: inline-block; transform: rotate(-1deg); box-shadow: 6px 6px 0 var(--bild-black);">auspacken.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="photo-stack">
+        <div class="photo">
+          <img src="assets/gottschalk.jpg" alt="Thomas Gottschalk">
+          <div class="cap">Thomas Gottschalk · "Man darf nix mehr sagen."</div>
+        </div>
+        <div class="photo alt">
+          <img src="assets/gottschalk_villa.jpg" alt="Gottschalks Malibu-Villa">
+          <div class="cap">Malibu · der Brand · November 2018</div>
+        </div>
+      </div>
+    </div>
+    <div class="bild-foot"><span class="pill">CHRONOLOGIE</span><span>EINGEWEIHT · AUSGESTIEGEN · ABGEBRANNT</span><span style="color:#fff;">SEITE 7</span></div>
+  </section>
+
+  <!-- =============== SLIDE 8: WACHT AUF =============== -->
+  <section class="slide" data-label="08 Wacht auf" style="background:#0a0a0a;" data-deck-last-visible="">
+    <div class="bild-strip" style="background:var(--bild-yellow); color:var(--bild-black);">
+      <span class="logo" style="background:var(--bild-black); color:var(--bild-yellow);">FINAL</span>
+      <span style="color:var(--bild-black);">URTEILEN SIE SELBST</span>
+      <span class="ribbon-spacer"></span>
+    </div>
+
+    <div style="position:absolute; inset: 72px 0 46px 0; display:flex; flex-direction:column; justify-content:center; align-items:center; gap: 50px; color:#fff; padding: 0 var(--pad-x); text-align:center;">
+
+      <div style="font-family:var(--font-cond); font-weight:700; font-size: 30px; letter-spacing:8px; text-transform:uppercase; color:var(--bild-yellow);">7 Ereignisse · 1 Wahrscheinlichkeit</div>
+
+      <h2 style="font-family: var(--font-head); font-size: 180px; line-height:.86; margin: 0; letter-spacing: 2px; color:#fff;">
+        1 zu<br>
+        <span style="color:var(--bild-red);">5 Quadrillionen</span>
+      </h2>
+
+      <div style="background:var(--bild-red); color:#fff; padding: 24px 56px 14px; display:inline-block; font-family: var(--font-head); font-size: 140px; line-height:.95; letter-spacing: 6px; transform: skew(-3deg); box-shadow: 0 12px 0 #5a0008;">
+        <span style="display:inline-block; transform:skew(3deg);">WACHT AUF!</span>
+      </div>
+    </div>
+
+    <div class="bild-foot" style="background:var(--bild-red); color:#fff;"><span class="pill" style="background:#000;">ENDE</span><span>HARIBO MACHT KINDER FROH — UND ERWACHSENE FRAGEND</span><span style="color:#fff;">SEITE 8</span></div>
+  </section>
+
+</deck-stage>
+
+<script src="deck-stage.js"></script>
+
+</body></html>
